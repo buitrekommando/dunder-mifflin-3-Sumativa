@@ -1,0 +1,26 @@
+{
+  "dunder3App": {
+    "jefe": {
+      "home": {
+        "title": "Jefes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Jefe",
+        "createOrEditLabel": "Crear o editar Jefe",
+        "notFound": "Ningún Jefes encontrado"
+      },
+      "created": "Un nuevo Jefe ha sido creado con el identificador {{ param }}",
+      "updated": "Un Jefe ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Jefe ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Jefe {{ id }}?"
+      },
+      "detail": {
+        "title": "Jefe"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "telefono": "Telefono",
+      "empleado": "Empleado"
+    }
+  }
+}

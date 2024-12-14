@@ -1,0 +1,27 @@
+entity Empleado {
+  nombre String required,
+  apellido String required,
+  telefono String required,
+  email String required,
+}
+
+entity Jefe {
+  nombre String required,
+  telefono String required,
+}
+
+entity Departamento {
+  ubicacion String required,
+  nombre String required,
+  presupuesto Integer required,
+}
+
+relationship OneToMany {
+  Departamento to Empleado{departamento},
+  Jefe to Empleado{jefe}
+
+}
+
+
+
+

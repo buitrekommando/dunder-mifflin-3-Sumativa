@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (jefe(); as jefeRef) {
+      <div>
+        <h2 data-cy="jefeDetailsHeading"><span jhiTranslate="dunder3App.jefe.detail.title">Jefe</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ jefeRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.jefe.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ jefeRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.jefe.telefono">Telefono</span></dt>
+          <dd>
+            <span>{{ jefeRef.telefono }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/jefe', jefeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

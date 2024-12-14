@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-empleado-heading" data-cy="EmpleadoCreateUpdateHeading" jhiTranslate="dunder3App.empleado.home.createOrEditLabel">
+        Crear o editar Empleado
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="dunder3App.empleado.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nombreRef = editForm.get('nombre')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre" jhiTranslate="dunder3App.empleado.nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          @if (nombreRef.invalid && (nombreRef.dirty || nombreRef.touched)) {
+            <div>
+              @if (editForm.get('nombre')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let apellidoRef = editForm.get('apellido')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_apellido" jhiTranslate="dunder3App.empleado.apellido">Apellido</label>
+          <input type="text" class="form-control" name="apellido" id="field_apellido" data-cy="apellido" formControlName="apellido" />
+          @if (apellidoRef.invalid && (apellidoRef.dirty || apellidoRef.touched)) {
+            <div>
+              @if (editForm.get('apellido')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let telefonoRef = editForm.get('telefono')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_telefono" jhiTranslate="dunder3App.empleado.telefono">Telefono</label>
+          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
+          @if (telefonoRef.invalid && (telefonoRef.dirty || telefonoRef.touched)) {
+            <div>
+              @if (editForm.get('telefono')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let emailRef = editForm.get('email')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="dunder3App.empleado.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
+            <div>
+              @if (editForm.get('email')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_departamento" jhiTranslate="dunder3App.empleado.departamento">Departamento</label>
+          <select
+            class="form-control"
+            id="field_departamento"
+            data-cy="departamento"
+            name="departamento"
+            formControlName="departamento"
+            [compareWith]="compareDepartamento"
+          >
+            <option [ngValue]="null"></option>
+            @for (departamentoOption of departamentosSharedCollection; track $index) {
+              <option [ngValue]="departamentoOption">{{ departamentoOption.nombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_jefe" jhiTranslate="dunder3App.empleado.jefe">Jefe</label>
+          <select class="form-control" id="field_jefe" data-cy="jefe" name="jefe" formControlName="jefe" [compareWith]="compareJefe">
+            <option [ngValue]="null"></option>
+            @for (jefeOption of jefesSharedCollection; track $index) {
+              <option [ngValue]="jefeOption">{{ jefeOption.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

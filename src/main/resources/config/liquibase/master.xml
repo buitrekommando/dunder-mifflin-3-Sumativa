@@ -17,7 +17,11 @@
     <property name="datetimeType" value="datetime" dbms="mssql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241213205719_added_entity_Departamento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241213205720_added_entity_Empleado.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241213205721_added_entity_Jefe.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20241213205720_added_entity_constraints_Empleado.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

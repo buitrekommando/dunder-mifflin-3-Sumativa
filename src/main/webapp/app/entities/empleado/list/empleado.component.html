@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="EmpleadoHeading">
+    <span jhiTranslate="dunder3App.empleado.home.title">Empleados</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="dunder3App.empleado.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-empleado"
+        [routerLink]="['/empleado/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="dunder3App.empleado.home.createLabel">Crear nuevo Empleado</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (empleados?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="dunder3App.empleado.home.notFound">Ningún Empleados encontrado</span>
+    </div>
+  }
+
+  @if (empleados && empleados.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nombre">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.nombre">Nombre</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="apellido">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.apellido">Apellido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telefono">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.telefono">Telefono</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="departamento.id">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.departamento">Departamento</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="jefe.id">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.empleado.jefe">Jefe</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (empleado of empleados; track trackId(empleado)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/empleado', empleado.id, 'view']">{{ empleado.id }}</a>
+              </td>
+              <td>{{ empleado.nombre }}</td>
+              <td>{{ empleado.apellido }}</td>
+              <td>{{ empleado.telefono }}</td>
+              <td>{{ empleado.email }}</td>
+              <td>
+                @if (empleado.departamento) {
+                  <div>
+                    <a [routerLink]="['/departamento', empleado.departamento.id, 'view']">{{ empleado.departamento.nombre }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (empleado.jefe) {
+                  <div>
+                    <a [routerLink]="['/jefe', empleado.jefe.id, 'view']">{{ empleado.jefe.nombre }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/empleado', empleado.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/empleado', empleado.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(empleado)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

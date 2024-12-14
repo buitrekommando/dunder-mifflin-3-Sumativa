@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="DepartamentoHeading">
+    <span jhiTranslate="dunder3App.departamento.home.title">Departamentos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="dunder3App.departamento.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-departamento"
+        [routerLink]="['/departamento/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="dunder3App.departamento.home.createLabel">Crear nuevo Departamento</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (departamentos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="dunder3App.departamento.home.notFound">Ningún Departamentos encontrado</span>
+    </div>
+  }
+
+  @if (departamentos && departamentos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ubicacion">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.departamento.ubicacion">Ubicacion</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nombre">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.departamento.nombre">Nombre</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="presupuesto">
+              <div class="d-flex">
+                <span jhiTranslate="dunder3App.departamento.presupuesto">Presupuesto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (departamento of departamentos; track trackId(departamento)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/departamento', departamento.id, 'view']">{{ departamento.id }}</a>
+              </td>
+              <td>{{ departamento.ubicacion }}</td>
+              <td>{{ departamento.nombre }}</td>
+              <td>{{ departamento.presupuesto }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/departamento', departamento.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/departamento', departamento.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(departamento)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

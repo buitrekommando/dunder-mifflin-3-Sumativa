@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (empleado(); as empleadoRef) {
+      <div>
+        <h2 data-cy="empleadoDetailsHeading"><span jhiTranslate="dunder3App.empleado.detail.title">Empleado</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ empleadoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ empleadoRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.apellido">Apellido</span></dt>
+          <dd>
+            <span>{{ empleadoRef.apellido }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.telefono">Telefono</span></dt>
+          <dd>
+            <span>{{ empleadoRef.telefono }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.email">Email</span></dt>
+          <dd>
+            <span>{{ empleadoRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.departamento">Departamento</span></dt>
+          <dd>
+            @if (empleado()!.departamento) {
+              <div>
+                <a [routerLink]="['/departamento', empleado()!.departamento?.id, 'view']">{{ empleadoRef.departamento?.nombre }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="dunder3App.empleado.jefe">Jefe</span></dt>
+          <dd>
+            @if (empleado()!.jefe) {
+              <div>
+                <a [routerLink]="['/jefe', empleado()!.jefe?.id, 'view']">{{ empleadoRef.jefe?.nombre }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/empleado', empleadoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
